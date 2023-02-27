@@ -2,6 +2,9 @@ let playerScore = 0;
 let computerScore = 0;
 const result = document.getElementById("result");
 const score = document.getElementById("score");
+const startButton = document.getElementById("startButton");
+const introScreen = document.getElementById("introScreen");
+const gameScreen = document.getElementById("gameScreen");
 
 function computerPlay() {
   const randomNumber = Math.floor(Math.random() * 3);
@@ -76,4 +79,11 @@ paperButton.addEventListener("click", () => {
 const scissorsButton = document.getElementById("scissors");
 scissorsButton.addEventListener("click", () => {
   playRound("scissors", computerPlay());
+});
+
+startButton.addEventListener("click", () => {
+  const nameInput = document.getElementById("nameInput").value;
+  const opponentSelect = document.getElementById("opponentSelect").value;
+  introScreen.style.display = "none";
+  gameScreen.style.display = "block";
 });
