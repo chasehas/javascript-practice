@@ -6,22 +6,40 @@ const startButton = document.getElementById("startButton");
 const introScreen = document.getElementById("introScreen");
 const gameScreen = document.getElementById("gameScreen");
 
-function computerPlay() {
-  const randomNumber = Math.floor(Math.random() * 3);
-  switch (randomNumber) {
-    case 0:
-      return "rock";
-    case 1:
-      return "paper";
-    case 2:
-      return "scissors";
+function computerPlay(opponentSelect) {
+  if (opponentSelect === "Medium") {
+    const randomNumber = Math.floor(Math.random() * 3);
+    switch (randomNumber) {
+      case 0:
+        return "rock";
+      case 1:
+        return "paper";
+      case 2:
+        return "scissors";
+    }
+  } else if (opponentSelect === "Easy") {
+    return "rock";
+  } else if (opponentSelect === "Hard") {
+    if (lastPlayerSelection !== null) {
+      return lastPlayerSelection;
+    } else {
+      const randomNumber = Math.floor(Math.random() * 3);
+      switch (randomNumber) {
+        case 0:
+          return "rock";
+        case 1:
+          return "paper";
+        case 2:
+          return "scissors";
+      }
+    }
   }
 }
 
 function playRound(playerSelection, computerSelection) {
   // convert both selections to lowercase
-  playerSelection = playerSelection.toLowerCase();
-  computerSelection = computerSelection.toLowerCase();
+  // playerSelection = playerSelection.toLowerCase();
+  // computerSelection = computerSelection.toLowerCase();
   let roundResult = "";
   let gossipResult= "";
 
@@ -68,17 +86,23 @@ function disableButtons() {
 
 const rockButton = document.getElementById("rock");
 rockButton.addEventListener("click", () => {
-  playRound("rock", computerPlay());
+  const playerSelection = "rock";
+  const computerSelection = computerPlay(document.getElementById("opponentSelect").value);
+  playRound(playerSelection, computerSelection);
 });
 
 const paperButton = document.getElementById("paper");
 paperButton.addEventListener("click", () => {
-  playRound("paper", computerPlay());
+  const playerSelection = "paper";
+  const computerSelection = computerPlay(document.getElementById("opponentSelect").value);
+  playRound(playerSelection, computerSelection);
 });
 
 const scissorsButton = document.getElementById("scissors");
 scissorsButton.addEventListener("click", () => {
-  playRound("scissors", computerPlay());
+  const playerSelection = "scissors";
+  const computerSelection = computerPlay(document.getElementById("opponentSelect").value);
+  playRound(playerSelection, computerSelection);
 });
 
 startButton.addEventListener("click", () => {
