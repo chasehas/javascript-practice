@@ -42,13 +42,13 @@ function computerPlay(opponentSelect) {
     }
   } else if (opponentSelect === "Impossible") {
     if (globalPlayerSelection == "rock") {
-      return "scissors";
+      return "paper";
     }
     else if (globalPlayerSelection == "paper") {
-      return "rock";
+      return "scissors";
     }
     else if (globalPlayerSelection == "scissors") {
-      return "paper";
+      return "rock";
     }
     else {
       return randomRPS();
@@ -88,10 +88,10 @@ function playRound(playerSelection, computerSelection) {
   score.textContent = `Player: ${playerScore} Computer: ${computerScore}`;
 
   if (playerScore === 5) {
-    gossip.textContent = "You win the game!";
+    gossip.textContent = "You win the game! Refresh to play again!";
     disableButtons();
   } else if (computerScore === 5) {
-    gossip.textContent = "Computer wins the game!";
+    gossip.textContent = "Computer wins the game! Refresh to play again!";
     disableButtons();
   } else {
     result.textContent = roundResult;
@@ -110,24 +110,27 @@ function disableButtons() {
 const rockButton = document.getElementById("rock");
 rockButton.addEventListener("click", () => {
   const playerSelection = "rock";
-  const computerSelection = computerPlay(document.getElementById("opponentSelect").value);
   globalPlayerSelection = playerSelection;
+  const computerSelection = computerPlay(document.getElementById("opponentSelect").value);
+  
   playRound(playerSelection, computerSelection);
 });
 
 const paperButton = document.getElementById("paper");
 paperButton.addEventListener("click", () => {
   const playerSelection = "paper";
-  const computerSelection = computerPlay(document.getElementById("opponentSelect").value);
   globalPlayerSelection = playerSelection;
+  const computerSelection = computerPlay(document.getElementById("opponentSelect").value);
+  
   playRound(playerSelection, computerSelection);
 });
 
 const scissorsButton = document.getElementById("scissors");
 scissorsButton.addEventListener("click", () => {
   const playerSelection = "scissors";
-  const computerSelection = computerPlay(document.getElementById("opponentSelect").value);
   globalPlayerSelection = playerSelection;
+  const computerSelection = computerPlay(document.getElementById("opponentSelect").value);
+  
   playRound(playerSelection, computerSelection);
 });
 
