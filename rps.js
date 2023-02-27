@@ -5,6 +5,8 @@ const score = document.getElementById("score");
 const startButton = document.getElementById("startButton");
 const introScreen = document.getElementById("introScreen");
 const gameScreen = document.getElementById("gameScreen");
+let lastPlayerSelection = ""
+let lastRoundResult = ""
 
 function computerPlay(opponentSelect) {
   if (opponentSelect === "Medium") {
@@ -20,8 +22,16 @@ function computerPlay(opponentSelect) {
   } else if (opponentSelect === "Easy") {
     return "rock";
   } else if (opponentSelect === "Hard") {
-    if (lastPlayerSelection !== null) {
-      return lastPlayerSelection;
+    if (lastPlayerSelection !== "" && lastRoundResult === "computer-win") {
+      if (lastPlayerSelection == "rock") {
+        return "scissors";
+      }
+      else if (lastPlayerSelection == "paper") {
+        return "rock";
+      }
+      if (lastPlayerSelection == "scissors") {
+        return "paper";
+      }
     } else {
       const randomNumber = Math.floor(Math.random() * 3);
       switch (randomNumber) {
@@ -42,12 +52,13 @@ function playRound(playerSelection, computerSelection) {
   // computerSelection = computerSelection.toLowerCase();
   let roundResult = "";
   let gossipResult= "";
-
+  lastPlayerSelection = playerSelection;
   const choices = `Player: ${playerSelection} Computer: ${computerSelection}`;
 
   if (playerSelection === computerSelection) {
     roundResult = `Tie! ${choices}`;
     gossipResult = "The only winning move is not to play."
+    lastRoundResult = "tie"
   } else if (
     (playerSelection === "rock" && computerSelection === "scissors") ||
     (playerSelection === "paper" && computerSelection === "rock") ||
@@ -56,10 +67,12 @@ function playRound(playerSelection, computerSelection) {
     playerScore++;
     roundResult = `You win this round! ${choices}`;
     gossipResult = "I'll get you next time."
+    lastRoundResult = "player-win"
   } else {
     computerScore++;
     roundResult = `Computer wins this round! ${choices}`;
     gossipResult = "Electrons beat emotions."
+    lastRoundResult = "computer-win"
   }
 
   score.textContent = `Player: ${playerScore} Computer: ${computerScore}`;
