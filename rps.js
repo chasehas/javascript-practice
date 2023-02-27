@@ -6,6 +6,7 @@ const startButton = document.getElementById("startButton");
 const introScreen = document.getElementById("introScreen");
 const gameScreen = document.getElementById("gameScreen");
 let computerDifficulty = ""
+let playerName = ""
 let secretMessage = document.getElementById("secret-message")
 let lastPlayerSelection = ""
 let lastRoundResult = ""
@@ -43,18 +44,20 @@ function computerPlay(opponentSelect) {
       return randomRPS();
     }
   } else if (opponentSelect === "Impossible") {
-    if (globalPlayerSelection == "rock") {
-      return "paper";
-    }
-    else if (globalPlayerSelection == "paper") {
-      return "scissors";
-    }
-    else if (globalPlayerSelection == "scissors") {
-      return "rock";
-    }
-    else {
-      return randomRPS();
-    }
+      if (playerName ==="no cap" || playerName === "nocap"){
+        return randomRPS();
+      }
+      else {
+        if (globalPlayerSelection == "rock") {
+        return "paper";
+        }
+        else if (globalPlayerSelection == "paper") {
+        return "scissors";
+        }
+        else if (globalPlayerSelection == "scissors") {
+        return "rock";
+        }
+      }
   }
 }
 
@@ -82,8 +85,8 @@ function playRound(playerSelection, computerSelection) {
     lastRoundResult = "player-win"
   } else {
     computerScore++;
-    roundResult = `Computer wins this round! ${choices}`;
-    gossipResult = "Electrons beat emotions."
+    roundResult = `You lose this round! ${choices}`;
+    gossipResult = "A perfect strategy."
     lastRoundResult = "computer-win"
   }
 
@@ -92,17 +95,20 @@ function playRound(playerSelection, computerSelection) {
   if (playerScore === 5) {
     gossip.textContent = "You win the game! Refresh to play again!";
     if (computerDifficulty === "Easy"){
-      secretMessage.textContent = "Rock, I still believe in you! btw, the others might have clues for Dr. Impossible!";
+      secretMessage.textContent = "Rock, I still believe in you! BTW, the others might have clues for Dr. Impossible!";
     }
     else if (computerDifficulty === "Medium"){
-      secretMessage.textContent = "Bah. Your clue is: The opposite of yes.";
+      secretMessage.textContent = "Eh, you win some, you lose some. Your clue is: The opposite of yes.";
     }
     else if (computerDifficulty === "Hard"){
-      secretMessage.textContent = "My perfect strategy! Your clue is: The thing that closes your toothpaste.";
+      secretMessage.textContent = "My perfect strategy let me down. Your clue is: The thing that closes your toothpaste.";
+    }
+    else if (computerDifficulty === "Impossible"){
+      secretMessage.textContent = "Defeated by no cap. That's crazy. Thanks for playing Chase's EPIC RPS.";
     }
     disableButtons();
   } else if (computerScore === 5) {
-    gossip.textContent = "Computer wins the game! Refresh to play again!";
+    gossip.textContent = "You lose the game! Refresh to play again!";
     disableButtons();
   } else {
     result.textContent = roundResult;
@@ -147,6 +153,7 @@ scissorsButton.addEventListener("click", () => {
 
 startButton.addEventListener("click", () => {
   const nameInput = document.getElementById("nameInput").value;
+  playerName = nameInput;
   const opponentSelect = document.getElementById("opponentSelect").value;
   computerDifficulty = opponentSelect;
   introScreen.style.display = "none";
@@ -165,4 +172,11 @@ function introGossip(){
   if (computerDifficulty === "Hard"){
     gossip.textContent = "Psychology, 1. You, 0.";
   }
+  if (computerDifficulty === "Impossible"){
+    gossip.textContent = "Go away.";
+  }
+  if (computerDifficulty === "Impossible" && (playerName === "nocap" || playerName === "no cap")){
+    gossip.textContent = "What? My powers!";
+  }
+
 }

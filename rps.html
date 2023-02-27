@@ -8,20 +8,20 @@
 </head>
 <body>
     <div id="introScreen">
-        <h1>Welcome to Chase's EPIC ROCK PAPER SCISSORS</h1>
+        <h1>Welcome to Chase's EPIC ROCK PAPER SCISSORS Tournament!</h1>
         <p>Please enter your name:</p>
         <input type="text" id="nameInput" value="Andrew">
         <p>Please select an opponent:</p>
         <select id="opponentSelect">
-            <option value="Easy">Easy</option>
-            <option value="Medium">Medium</option>
-            <option value="Hard">Hard</option>
-            <option value="Impossible">Impossible</option>
+            <option value="Easy">Kid Easy</option>
+            <option value="Medium">Mr. Medium</option>
+            <option value="Hard">Ms. Hard</option>
+            <option value="Impossible">Dr. Impossible</option>
         </select>
         <button id="startButton">Start Game</button>
     </div>
     <div id="gameScreen" style="display: none;">
-        <h1 id="game-title"></h1>
+        <h1 id="game-title">RPS Throwdown!</h1>
         <p>Choose your weapon:</p>
         <div id></div>
         <button id="rock">Rock</button>
@@ -30,6 +30,7 @@
         <div id="score">Player: 0 Computer: 0</div>
         <div id="result"></div>
         <div id="gossip"></div>
+        <div id="secret-message"></div>
 
     </div>
     <script src="rps.js">
