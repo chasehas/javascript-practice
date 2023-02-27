@@ -7,18 +7,23 @@ const introScreen = document.getElementById("introScreen");
 const gameScreen = document.getElementById("gameScreen");
 let lastPlayerSelection = ""
 let lastRoundResult = ""
+let globalPlayerSelection = ""
+
+function randomRPS() {
+  const randomNumber = Math.floor(Math.random() * 3);
+  switch (randomNumber) {
+    case 0:
+      return "rock";
+    case 1:
+      return "paper";
+    case 2:
+      return "scissors";
+  }
+}
 
 function computerPlay(opponentSelect) {
   if (opponentSelect === "Medium") {
-    const randomNumber = Math.floor(Math.random() * 3);
-    switch (randomNumber) {
-      case 0:
-        return "rock";
-      case 1:
-        return "paper";
-      case 2:
-        return "scissors";
-    }
+    return randomRPS();
   } else if (opponentSelect === "Easy") {
     return "rock";
   } else if (opponentSelect === "Hard") {
@@ -29,19 +34,24 @@ function computerPlay(opponentSelect) {
       else if (lastPlayerSelection == "paper") {
         return "rock";
       }
-      if (lastPlayerSelection == "scissors") {
+      else if (lastPlayerSelection == "scissors") {
         return "paper";
       }
     } else {
-      const randomNumber = Math.floor(Math.random() * 3);
-      switch (randomNumber) {
-        case 0:
-          return "rock";
-        case 1:
-          return "paper";
-        case 2:
-          return "scissors";
-      }
+      return randomRPS();
+    }
+  } else if (opponentSelect === "Impossible") {
+    if (globalPlayerSelection == "rock") {
+      return "scissors";
+    }
+    else if (globalPlayerSelection == "paper") {
+      return "rock";
+    }
+    else if (globalPlayerSelection == "scissors") {
+      return "paper";
+    }
+    else {
+      return randomRPS();
     }
   }
 }
@@ -78,10 +88,10 @@ function playRound(playerSelection, computerSelection) {
   score.textContent = `Player: ${playerScore} Computer: ${computerScore}`;
 
   if (playerScore === 5) {
-    result.textContent = "You win the game!";
+    gossip.textContent = "You win the game!";
     disableButtons();
   } else if (computerScore === 5) {
-    result.textContent = "Computer wins the game!";
+    gossip.textContent = "Computer wins the game!";
     disableButtons();
   } else {
     result.textContent = roundResult;
@@ -101,6 +111,7 @@ const rockButton = document.getElementById("rock");
 rockButton.addEventListener("click", () => {
   const playerSelection = "rock";
   const computerSelection = computerPlay(document.getElementById("opponentSelect").value);
+  globalPlayerSelection = playerSelection;
   playRound(playerSelection, computerSelection);
 });
 
@@ -108,6 +119,7 @@ const paperButton = document.getElementById("paper");
 paperButton.addEventListener("click", () => {
   const playerSelection = "paper";
   const computerSelection = computerPlay(document.getElementById("opponentSelect").value);
+  globalPlayerSelection = playerSelection;
   playRound(playerSelection, computerSelection);
 });
 
@@ -115,6 +127,7 @@ const scissorsButton = document.getElementById("scissors");
 scissorsButton.addEventListener("click", () => {
   const playerSelection = "scissors";
   const computerSelection = computerPlay(document.getElementById("opponentSelect").value);
+  globalPlayerSelection = playerSelection;
   playRound(playerSelection, computerSelection);
 });
 
