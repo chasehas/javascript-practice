@@ -20,11 +20,13 @@ function playRound(playerSelection, computerSelection) {
   playerSelection = playerSelection.toLowerCase();
   computerSelection = computerSelection.toLowerCase();
   let roundResult = "";
+  let gossipResult= "";
 
   const choices = `Player: ${playerSelection} Computer: ${computerSelection}`;
 
   if (playerSelection === computerSelection) {
     roundResult = `Tie! ${choices}`;
+    gossipResult = "The only winning move is not to play."
   } else if (
     (playerSelection === "rock" && computerSelection === "scissors") ||
     (playerSelection === "paper" && computerSelection === "rock") ||
@@ -32,9 +34,11 @@ function playRound(playerSelection, computerSelection) {
   ) {
     playerScore++;
     roundResult = `You win this round! ${choices}`;
+    gossipResult = "I'll get you next time."
   } else {
     computerScore++;
     roundResult = `Computer wins this round! ${choices}`;
+    gossipResult = "Electrons beat emotions."
   }
 
   score.textContent = `Player: ${playerScore} Computer: ${computerScore}`;
@@ -47,6 +51,7 @@ function playRound(playerSelection, computerSelection) {
     disableButtons();
   } else {
     result.textContent = roundResult;
+    gossip.textContent = gossipResult;
   }
 }
 
