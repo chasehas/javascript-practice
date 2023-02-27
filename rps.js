@@ -104,7 +104,7 @@ function playRound(playerSelection, computerSelection) {
       secretMessage.textContent = "My perfect strategy let me down. Your clue is: The thing that closes your toothpaste.";
     }
     else if (computerDifficulty === "Impossible"){
-      secretMessage.textContent = "Defeated by no cap. That's crazy. Thanks for playing Chase's EPIC RPS.";
+      secretMessage.textContent = "Defeated by no cap. That's crazy. Thanks for playing Chase's EPIC RPS Tournament.";
     }
     disableButtons();
   } else if (computerScore === 5) {
