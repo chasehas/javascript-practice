@@ -5,6 +5,8 @@ const score = document.getElementById("score");
 const startButton = document.getElementById("startButton");
 const introScreen = document.getElementById("introScreen");
 const gameScreen = document.getElementById("gameScreen");
+let computerDifficulty = ""
+let secretMessage = document.getElementById("secret-message")
 let lastPlayerSelection = ""
 let lastRoundResult = ""
 let globalPlayerSelection = ""
@@ -89,6 +91,15 @@ function playRound(playerSelection, computerSelection) {
 
   if (playerScore === 5) {
     gossip.textContent = "You win the game! Refresh to play again!";
+    if (computerDifficulty === "Easy"){
+      secretMessage.textContent = "Rock, I still believe in you! btw, the others might have clues for Dr. Impossible!";
+    }
+    else if (computerDifficulty === "Medium"){
+      secretMessage.textContent = "Bah. Your clue is: The opposite of yes.";
+    }
+    else if (computerDifficulty === "Hard"){
+      secretMessage.textContent = "My perfect strategy! Your clue is: The thing that closes your toothpaste.";
+    }
     disableButtons();
   } else if (computerScore === 5) {
     gossip.textContent = "Computer wins the game! Refresh to play again!";
@@ -111,7 +122,7 @@ const rockButton = document.getElementById("rock");
 rockButton.addEventListener("click", () => {
   const playerSelection = "rock";
   globalPlayerSelection = playerSelection;
-  const computerSelection = computerPlay(document.getElementById("opponentSelect").value);
+  const computerSelection = computerPlay(computerDifficulty);
   
   playRound(playerSelection, computerSelection);
 });
@@ -120,7 +131,7 @@ const paperButton = document.getElementById("paper");
 paperButton.addEventListener("click", () => {
   const playerSelection = "paper";
   globalPlayerSelection = playerSelection;
-  const computerSelection = computerPlay(document.getElementById("opponentSelect").value);
+  const computerSelection = computerPlay(computerDifficulty);
   
   playRound(playerSelection, computerSelection);
 });
@@ -129,7 +140,7 @@ const scissorsButton = document.getElementById("scissors");
 scissorsButton.addEventListener("click", () => {
   const playerSelection = "scissors";
   globalPlayerSelection = playerSelection;
-  const computerSelection = computerPlay(document.getElementById("opponentSelect").value);
+  const computerSelection = computerPlay(computerDifficulty);
   
   playRound(playerSelection, computerSelection);
 });
@@ -137,6 +148,21 @@ scissorsButton.addEventListener("click", () => {
 startButton.addEventListener("click", () => {
   const nameInput = document.getElementById("nameInput").value;
   const opponentSelect = document.getElementById("opponentSelect").value;
+  computerDifficulty = opponentSelect;
   introScreen.style.display = "none";
   gameScreen.style.display = "block";
+  introGossip()
 });
+
+function introGossip(){
+  
+  if (computerDifficulty === "Easy"){
+    gossip.textContent = "Rock is a lock.";
+  }
+  if (computerDifficulty === "Medium"){
+    gossip.textContent = "Medium? Not for you, noob.";
+  }
+  if (computerDifficulty === "Hard"){
+    gossip.textContent = "Psychology, 1. You, 0.";
+  }
+}
